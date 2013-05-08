@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block headadd %}
+
+
+{% endblock %}
+
+
+{% block d3content %}
+<strong>Total Portfolio Value</strong>
+<iframe src="/pure1" scrolling="no" style="width:100%; height:525px;"></iframe>
+<br /><br />
+<strong>Individual Asset Value</strong>
+<iframe src="/pure2" scrolling="no" style="width:100%; height:525px;"></iframe>
+<br /><br />
+<strong>Click To Add Graph Nodes? Huh?</strong>
+<iframe src="/pure3" scrolling="no" style="width:100%; height:525px;"></iframe>
+<br /><br />
+<strong>...now I'm not even sure?</strong>
+<iframe src="/pure4" scrolling="no" style="width:100%; height:525px;"></iframe>
+{% endblock %}
+
+{% block signoff %}
+Return <a href="/">Home</a>
+{% endblock %}
