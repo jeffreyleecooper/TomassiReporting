@@ -17,6 +17,11 @@
 import webapp2
 import jinja2
 import os
+import cgi
+import datetime
+import urllib
+from google.appengine.api import users
+from google.appengine.ext import db
 
 # Setup Jinja Templates (similar to Django templates)
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'templates')))
@@ -24,8 +29,16 @@ JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.jo
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         
+        if users.get_current_user():
+            url = users.create_logout_url(self.request.uri)
+            url_linktext='Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login To View Your Dashboard'
+            
         template_values = {
-            'message':'Grant'
+            'login_url':url,
+            'login_text':url_linktext
         }
             
         template = JINJA_ENVIRONMENT.get_template('base.html')
@@ -50,44 +63,12 @@ class PureTotalHandler(webapp2.RequestHandler):
             
         template = JINJA_ENVIRONMENT.get_template('puretotal.html')
         self.response.write(template.render(template_values))
-        
-class PureMultiHandler(webapp2.RequestHandler):
-    def get(self):
-        
-        template_values = {
-            'message':'Grant'
-        }
-            
-        template = JINJA_ENVIRONMENT.get_template('puremulti.html')
-        self.response.write(template.render(template_values))
-        
-class PureBuildHandler(webapp2.RequestHandler):
-    def get(self):
-        
-        template_values = {
-            'message':'Grant'
-        }
-            
-        template = JINJA_ENVIRONMENT.get_template('buildit.html')
-        self.response.write(template.render(template_values))
 
-class PureSelectHandler(webapp2.RequestHandler):
-    def get(self):
-        
-        template_values = {
-            'message':'Grant'
-        }
-            
-        template = JINJA_ENVIRONMENT.get_template('select.html')
-        self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/report', ReportHandler),
     ('/pure1', PureTotalHandler),
-    ('/pure2', PureMultiHandler),
-    ('/pure3', PureBuildHandler),
-    ('/pure4', PureSelectHandler)
 ], debug=True)
 
 

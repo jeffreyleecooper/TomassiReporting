@@ -53,21 +53,19 @@
       </i>
       <br>
       <hr>
-      {% block signoff %}{% endblock %}
+      {% block signoff %}
+      {% endblock %}
       </div>
       <div class="control-group"><div class="controls"></div></div>
       <div class="hero-unit jetstrap-highlighted">
       
       {% block d3content %}
-      <a href="/report" ><strong>Click To Preview A Report </strong></a><br/>
-      Imagine a client-facing report.  Give your investors something to watch and play around with.<br />
-      Perhaps it reflects the value of a Tomassi Holdings portfolio and allows drill-downs into the individual assets.<br/><br />
-      <a href="/report"><img src="/assets/img/ReportingIcon.png"></a>
+      <a class="btn" href="{{login_url}}">{{login_text}}</a>
       {% endblock %}
       
       </div>
       <hr>
-      <div class="text-right">Brought to you by <a href="http://www.jeffreyleecooper.com" target="_blank">Jeff Cooper</a>.</div>
+      <div class="text-right"><a href="/report" >Backdoor to Reports</a><br />Brought to you by <a href="http://www.jeffreyleecooper.com" target="_blank">Jeff Cooper</a>.</div>
       </div>
     
 
