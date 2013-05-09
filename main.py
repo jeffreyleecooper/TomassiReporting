@@ -26,6 +26,10 @@ from google.appengine.ext import db
 # Setup Jinja Templates (similar to Django templates)
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'templates')))
 
+# Users with access
+approved_user_list=['jeffreyleecooper@gmail.com','grant.tomassi@gmail.com']
+
+# Create Handlers
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         
@@ -43,34 +47,61 @@ class MainHandler(webapp2.RequestHandler):
             'login_text':url_linktext,
             'user':current_user
         }
-            
+    
         template = JINJA_ENVIRONMENT.get_template('base.html')
         self.response.write(template.render(template_values))
 
 class ReportHandler(webapp2.RequestHandler):
     def get(self):
         
-        url = users.create_logout_url('/')
-        url_linktext='Logout'
-        current_user=users.get_current_user()
-        
-        template_values = {
-            'login_url':url,
-            'login_text':url_linktext,
-            'user':current_user
-        }
+        if users.get_current_user().email() not in approved_user_list:
+            url = users.create_logout_url('/')
+            url_linktext='Logout'
+            current_user=users.get_current_user()
+            template_values = {
+                'login_url':url,
+                'login_text':url_linktext,
+                'user':current_user
+            }
             
-        template = JINJA_ENVIRONMENT.get_template('d3index.html')
-        self.response.write(template.render(template_values))
+            template = JINJA_ENVIRONMENT.get_template('denied.html')
+            self.response.write(template.render(template_values))
+       
+        else:
+            url = users.create_logout_url('/')
+            url_linktext='Logout'
+            current_user=users.get_current_user()
+            template_values = {
+                'login_url':url,
+                'login_text':url_linktext,
+                'user':current_user
+            }
+           
+            template = JINJA_ENVIRONMENT.get_template('d3index.html')
+            self.response.write(template.render(template_values))
         
 class PureTotalHandler(webapp2.RequestHandler):
     def get(self):
         
-        template_values = {
-        }
-            
-        template = JINJA_ENVIRONMENT.get_template('puretotal.html')
-        self.response.write(template.render(template_values))
+        if users.get_current_user().email() not in approved_user_list:
+            url = users.create_logout_url('/')
+            url_linktext='Logout'
+            current_user=users.get_current_user()
+            template_values = {
+                'login_url':url,
+                'login_text':url_linktext,
+                'user':current_user
+            }
+          
+            template = JINJA_ENVIRONMENT.get_template('denied.html')
+            self.response.write(template.render(template_values))
+      
+        else:
+            template_values = {
+            }
+                
+            template = JINJA_ENVIRONMENT.get_template('puretotal.html')
+            self.response.write(template.render(template_values))
 
 
 app = webapp2.WSGIApplication([
