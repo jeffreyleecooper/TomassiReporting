@@ -32,13 +32,16 @@ class MainHandler(webapp2.RequestHandler):
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
             url_linktext='Logout'
+            current_user=users.get_current_user()
         else:
             url = users.create_login_url(self.request.uri)
-            url_linktext = 'Login To View Your Dashboard'
+            url_linktext = 'Login'
+            current_user = None
             
         template_values = {
             'login_url':url,
-            'login_text':url_linktext
+            'login_text':url_linktext,
+            'user':current_user
         }
             
         template = JINJA_ENVIRONMENT.get_template('base.html')
@@ -47,8 +50,14 @@ class MainHandler(webapp2.RequestHandler):
 class ReportHandler(webapp2.RequestHandler):
     def get(self):
         
+        url = users.create_logout_url('/')
+        url_linktext='Logout'
+        current_user=users.get_current_user()
+        
         template_values = {
-            'message':'Grant'
+            'login_url':url,
+            'login_text':url_linktext,
+            'user':current_user
         }
             
         template = JINJA_ENVIRONMENT.get_template('d3index.html')
@@ -58,7 +67,6 @@ class PureTotalHandler(webapp2.RequestHandler):
     def get(self):
         
         template_values = {
-            'message':'Grant'
         }
             
         template = JINJA_ENVIRONMENT.get_template('puretotal.html')
