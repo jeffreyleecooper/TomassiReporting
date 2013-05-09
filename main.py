@@ -36,7 +36,7 @@ class MainHandler(webapp2.RequestHandler):
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
             url_linktext='Logout'
-            current_user=users.get_current_user()
+            current_user=users.get_current_user().email()
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -54,10 +54,10 @@ class MainHandler(webapp2.RequestHandler):
 class ReportHandler(webapp2.RequestHandler):
     def get(self):
         
-        if users.get_current_user().email() not in approved_user_list:
+        if users.get_current_user().email().lower() not in approved_user_list:
             url = users.create_logout_url('/')
             url_linktext='Logout'
-            current_user=users.get_current_user()
+            current_user=users.get_current_user().email()
             template_values = {
                 'login_url':url,
                 'login_text':url_linktext,
@@ -70,7 +70,7 @@ class ReportHandler(webapp2.RequestHandler):
         else:
             url = users.create_logout_url('/')
             url_linktext='Logout'
-            current_user=users.get_current_user()
+            current_user=users.get_current_user().email()
             template_values = {
                 'login_url':url,
                 'login_text':url_linktext,
@@ -83,7 +83,7 @@ class ReportHandler(webapp2.RequestHandler):
 class PureTotalHandler(webapp2.RequestHandler):
     def get(self):
         
-        if users.get_current_user().email() not in approved_user_list:
+        if users.get_current_user().email().lower() not in approved_user_list:
             url = users.create_logout_url('/')
             url_linktext='Logout'
             current_user=users.get_current_user()
