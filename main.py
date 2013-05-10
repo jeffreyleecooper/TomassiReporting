@@ -79,35 +79,10 @@ class ReportHandler(webapp2.RequestHandler):
            
             template = JINJA_ENVIRONMENT.get_template('report.html')
             self.response.write(template.render(template_values))
-        
-class PureTotalHandler(webapp2.RequestHandler):
-    def get(self):
-        
-        if users.get_current_user().email().lower() not in approved_user_list:
-            url = users.create_logout_url('/')
-            url_linktext='Logout'
-            current_user=users.get_current_user()
-            template_values = {
-                'login_url':url,
-                'login_text':url_linktext,
-                'user':current_user
-            }
-          
-            template = JINJA_ENVIRONMENT.get_template('denied.html')
-            self.response.write(template.render(template_values))
-      
-        else:
-            template_values = {
-            }
-                
-            template = JINJA_ENVIRONMENT.get_template('puretotal.html')
-            self.response.write(template.render(template_values))
-
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/report', ReportHandler),
-    ('/pure1', PureTotalHandler),
 ], debug=True)
 
 
