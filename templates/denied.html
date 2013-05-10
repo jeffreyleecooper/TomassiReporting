@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set active_page = "report" %}
+
 {% block headadd %}
 
 
@@ -7,10 +9,12 @@
 
 
 {% block d3content %}
-<p>Your email is not authorized to access this content.  If this is an error, please contact grant.tomassi@gmail.com for assistance.</p>
+<div class="center_align">
+Your email ({{user}}) is not authorized to access this content.  
+If this is an error, please contact grant.tomassi@gmail.com for assistance.</p>
 <img src="/assets/img/denied.jpg">
+</div>
 {% endblock %}
 
 {% block signoff %}
-Return <a href="/">Home</a>
 {% endblock %}
