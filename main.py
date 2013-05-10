@@ -77,7 +77,7 @@ class ReportHandler(webapp2.RequestHandler):
                 'user':current_user
             }
            
-            template = JINJA_ENVIRONMENT.get_template('d3index.html')
+            template = JINJA_ENVIRONMENT.get_template('report.html')
             self.response.write(template.render(template_values))
         
 class PureTotalHandler(webapp2.RequestHandler):
