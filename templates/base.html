@@ -57,7 +57,7 @@
     <div class="pull-right"><a href="http://www.singularlaboratories.com"><img src="/assets/img/logo.png" ></a>
     </div>
     
-    <div style="padding-top:20px;">
+    <div style="padding-top:25px;">
     <ul class="nav nav-tabs" >
 	<li {% if active_page != "report" %} class="active"{% endif %}>
 		<a href="/">Welcome</a>
@@ -86,7 +86,7 @@
       <hr>
       <div class="center_align">
       {% if user %}
-      You are currently logged in as {{user}}.<br /><br />
+      You are currently logged in as {{user}}<br /><br />
       {% endif %}
       <a class="btn" href="{{login_url}}">{{login_text}}</a></div>
       </div>
